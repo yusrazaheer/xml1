@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="Description" content="Enter your description here"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link rel="stylesheet" href="assets/css/style.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+<title>Title</title>
+<style>
+    /* Style for the table */
+#mytable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#mytable th, #mytable td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #035023;
+}
+
+#mytable th {
+    background-color: #5d645e;
+    color: white;
+}
+
+/* Hover effect for table rows */
+#mytable tbody tr:hover {
+    background-color: #f2f2f2;
+}
+
+/* Styling for odd table rows */
+#mytable tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+/* Styling for even table rows */
+#mytable tbody tr:nth-child(even) {
+    background-color: #fff;
+}
+
+/* Style for DataTables buttons */
+.dt-buttons {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Style for each button */
+.dt-button {
+    background-color: #023c4f;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+/* Button hover effect */
+.dt-button:hover {
+    background-color: #0626a9;
+}
+
+/* Style for the header of the table */
+#mytable th {
+    background-color: #737873;
+    color: white;
+}
+
+/* Add gradient background to the header */
+#mytable th {
+    background: linear-gradient(to right, #014e05, #024720);
+}
+
+/* Add shadow effect to the table */
+#mytable {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Add border-radius to the table */
+#mytable {
+    border-radius: 10px;
+}
+
+/* Add box-shadow to the DataTables buttons */
+.dt-button {
+    box-shadow: 0 4px 8px rgba(238, 178, 178, 0.1);
+}
+
+/* Add border-radius to the DataTables buttons */
+.dt-button {
+    border-radius: 5px;
+}
+
+</style>
+</head>
+<body>
+    <table class="table" id="mytable">
+ <thead>
+    <tr>
+        <th>John Doe</th>
+        <th>101</th>
+        <th>A</th>
+    </tr>
+ </thead>
+ <tbody id="tbody">
+ </tbody>
+    </table>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $.get("data.xml", function(result){
+            $(result).find("Student").each(function(){
+                var Name=$(this).find("Name").text()
+                var RollNumber=$(this).find("RollNumber").text()
+                var Grade =$(this).find("Grade").text()
+
+                document.getElementById('tbody').innerHTML+=`
+                <tr>
+                    <td>${Name}</td>
+                    <td>${RollNumber}</td>
+                    <td>${Grade}</td>
+                    </tr>
+                    `
+
+            })
+            
+            $('#mytable').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5',
+            'pdfHtml5'
+        ]
+    } );
+        })
+    })
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.0/js/bootstrap.min.js"></script>
+</body>
+</html>
